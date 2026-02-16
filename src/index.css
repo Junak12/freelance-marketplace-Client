@@ -1,1 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Poppins:wght@400;500;700&display=swap');
+
 @import "tailwindcss";
+
+/* Tailwind dark mode via data-theme */
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
+/* Full height */
+html,
+body {
+  height: 100%;
+}
+
+/* Global styles */
+body {
+  font-family: 'Poppins', sans-serif;
+
+  /* Light mode */
+  @apply bg-gradient-to-br from-blue-100 via-blue-200 to-cyan-100
+         text-gray-800 transition-colors duration-300;
+
+  /* Dark mode */
+  @apply dark:bg-gradient-to-br dark:from-slate-700 dark:via-slate-700 dark:to-slate-800
+         dark:text-gray-200;
+}
