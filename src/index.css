@@ -16,10 +16,7 @@ body {
   font-family: 'Poppins', sans-serif;
 
   /* Light mode */
-  @apply bg-gradient-to-br from-blue-100 via-blue-200 to-cyan-100
-         text-gray-800 transition-colors duration-300;
 
   /* Dark mode */
-  @apply dark:bg-gradient-to-br dark:from-slate-700 dark:via-slate-700 dark:to-slate-800
-         dark:text-gray-200;
+  @apply dark:bg-[#30406e]
 }
