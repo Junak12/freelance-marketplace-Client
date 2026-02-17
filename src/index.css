@@ -18,5 +18,5 @@ body {
   /* Light mode */
 
   /* Dark mode */
-  @apply dark:bg-[#30406e]
+  @apply dark:bg-[#242f52]
 }

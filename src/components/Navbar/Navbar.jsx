@@ -40,10 +40,10 @@ const Navbar = () => {
   return (
     <nav
       className={` px-4 md:px-6 lg:px-16 transition-shadow duration-300 shadow-xl
-        ${shadow ? "shadow-md bg-white/90 dark:bg-slate-900/90 backdrop-blur-md" : "bg-transparent"}
+        ${shadow ? "shadow-md border-b border-b-gray-500 dark:border-b-slate-700 backdrop-blur-md" : "bg-transparent"}
       `}
     >
-      <div className="flex items-center justify-between h-20">
+      <div className="flex items-center justify-between h-24">
         {/* Logo */}
         <div className="flex items-center gap-3 sm:gap-4">
           <img
