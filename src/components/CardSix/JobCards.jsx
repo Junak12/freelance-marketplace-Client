@@ -1,36 +1,18 @@
 import React, { useEffect, useState } from "react";
 import useAxios from "../../hooks/useAxios";
 import { FaDollarSign, FaClock, FaUserAlt } from "react-icons/fa";
+import { useData } from "../../hooks/useData";
 
 const JobCards = ({ limit }) => {
-  const [data, setData] = useState([]);
-  const instance = useAxios();
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const result = await instance.get("/AllJobs");
-        if (Array.isArray(result.data)) {
-          setData(result.data);
-        } else {
-          console.error("API did not return an array", result.data);
-        }
-      } catch (err) {
-        console.error("Error fetching jobs:", err);
-      }
-    };
-
-    fetchData();
-  }, [instance]);
+  const {data, loading} = useData();
 
   const jobs = limit ? data.slice(0, limit) : data;
 
   return (
     <section className="px-4 sm:px-6 lg:px-24 py-8">
-      <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-center mb-12 bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-500">
-        Build Projects with World-Class Freelancers. <br />
+      <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-center mb-18 bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-500">
         Hire Experts. Deliver Exceptional Results. <br />
-        Turn Ideas into Scalable Digital Products.
+
       </h2>
 
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">

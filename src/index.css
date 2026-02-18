@@ -4,14 +4,42 @@
 
 @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 
-
 html,
 body {
   height: 100%;
 }
 
-
 html {
   font-family: 'Poppins', sans-serif;
   transition: background 0.7s ease-in-out;
+}
+
+.scroll-container::-webkit-scrollbar {
+  height: 6px; 
+  width: 6px;  
+}
+
+.scroll-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scroll-container::-webkit-scrollbar-thumb {
+  background-color: rgba(156, 163, 175, 0.5); 
+  border-radius: 9999px;
+  transition: background-color 0.3s;
+}
+
+.scroll-container::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(156, 163, 175, 0.8);
+}
+
+
+.scroll-container {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(156, 163, 175, 0.5) transparent;
+}
+
+
+.scroll-container {
+  scroll-behavior: smooth;
 }
