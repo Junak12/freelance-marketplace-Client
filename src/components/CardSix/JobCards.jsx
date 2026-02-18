@@ -1,78 +1,43 @@
 import React, { useEffect, useState } from "react";
 import useAxios from "../../hooks/useAxios";
 import { FaDollarSign, FaClock, FaUserAlt } from "react-icons/fa";
-import { motion, useAnimation } from "framer-motion";
-import { useInView } from "react-intersection-observer";
 
 const JobCards = ({ limit }) => {
   const [data, setData] = useState([]);
   const instance = useAxios();
-  //instance.get("/AllJobs").then((res) => setData(res.data));
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await instance.get('/AllJobs')
-      setData(result.data);
-    }
+      try {
+        const result = await instance.get("/AllJobs");
+        if (Array.isArray(result.data)) {
+          setData(result.data);
+        } else {
+          console.error("API did not return an array", result.data);
+        }
+      } catch (err) {
+        console.error("Error fetching jobs:", err);
+      }
+    };
+
     fetchData();
   }, [instance]);
 
   const jobs = limit ? data.slice(0, limit) : data;
 
-
-  const controls = useAnimation();
-  const [ref, inView] = useInView({
-    threshold: 0.3,
-    triggerOnce: false, 
-  });
-
-  useEffect(() => {
-    if (inView) {
-      controls.start({
-        opacity: 1,
-        y: 0,
-        transition: { duration: 1, ease: "easeOut" },
-      });
-    } else {
-      controls.start({ opacity: 0, y: 20 });
-    }
-  }, [controls, inView]);
-
   return (
-    <section ref={ref} className="relative px-4 sm:px-6 lg:px-24 py-8">
-
-      <motion.h2
-        initial={{ opacity: 0, y: 20 }}
-        animate={controls}
-        whileHover={{ scale: 1.03 }}
-        className="
-          text-2xl sm:text-3xl md:text-4xl lg:text-6xl
-          font-extrabold text-center mb-12
-          bg-clip-text text-transparent
-          bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-500
-          break-words
-        "
-      >
+    <section className="px-4 sm:px-6 lg:px-24 py-8">
+      <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-center mb-12 bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-500">
         Build Projects with World-Class Freelancers. <br />
         Hire Experts. Deliver Exceptional Results. <br />
         Turn Ideas into Scalable Digital Products.
-      </motion.h2>
+      </h2>
 
-      {/* Job Cards Grid */}
-      <div className="grid gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {jobs.map((item) => (
-          <motion.div
+          <div
             key={item._id}
-            whileHover={{ y: -8, scale: 1.03 }}
-            transition={{ type: "spring", stiffness: 200, damping: 18 }}
-            className="
-              rounded-3xl overflow-hidden
-              border border-gray-200/70 dark:border-white/10
-              bg-white/70 dark:bg-white/5
-              backdrop-blur-xl
-              shadow-2xl dark:shadow-[0_10px_25px_rgba(6,182,212,0.4)]
-              transition-shadow duration-300
-            "
+            className="rounded-3xl overflow-hidden border border-gray-200/70 dark:border-white/10 bg-white/70 dark:bg-white/5 backdrop-blur-xl shadow-2xl"
           >
             {/* Card Image */}
             <div className="h-48 sm:h-56 relative overflow-hidden">
@@ -111,7 +76,7 @@ const JobCards = ({ limit }) => {
                 View Details →
               </button>
             </div>
-          </motion.div>
+          </div>
         ))}
       </div>
     </section>

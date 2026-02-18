@@ -106,7 +106,7 @@ const Hero = () => {
       className="
         relative min-h-screen overflow-hidden
         px-6 lg:px-24
-        pt-28 sm:pt-32 md:pt-36 lg:pt-0
+        pt-10 sm:pt-32 md:pt-20 lg:-mt-15
         flex items-center
       "
     >
