@@ -2,30 +2,16 @@
 
 @import "tailwindcss";
 
-/* Tailwind dark mode via data-theme */
 @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 
-/* Full height */
+
 html,
 body {
   height: 100%;
 }
 
-/* Global styles */
-body {
+
+html {
   font-family: 'Poppins', sans-serif;
-
-  /* Light mode gradient: white → #d4f8fd → white */
-  background: linear-gradient(
-    90deg,      /* horizontal gradient */
-    #ffffff 0%,  /* left */
-    #d4f8fd 50%, /* center */
-    #ffffff 100% /* right */
-  );
-
-  /* Dark mode gradient */
-  @apply dark:bg-gradient-to-br dark:bg-[#114472] dark:to-slate-900;
-
-  /* Smooth transition when changing theme */
   transition: background 0.7s ease-in-out;
 }

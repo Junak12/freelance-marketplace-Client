@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router";
-import { motion } from "framer-motion";
+import { motion, useAnimation } from "framer-motion";
+import { useInView } from "react-intersection-observer";
 import HeroImgLight from "../../assets/banner7.png";
 import HeroImgDark from "../../assets/banner8.png";
 
-/* -----------------------------
-   Typing Text Content
------------------------------- */
 const phrases = [
   "Build Projects with World-Class Freelancers.",
   "Turn Ideas into Scalable Digital Products.",
@@ -18,52 +16,33 @@ const TYPING_SPEED = 60;
 const DELETING_SPEED = 40;
 const PAUSE_DURATION = 1800;
 
-/* -----------------------------
-   Animation Variants
------------------------------- */
 const containerFade = {
   hidden: { opacity: 0 },
   show: {
     opacity: 1,
-    transition: {
-      duration: 1,
-      ease: "easeOut",
-      staggerChildren: 0.12,
-    },
+    transition: { duration: 1, ease: "easeOut", staggerChildren: 0.12 },
   },
 };
 
 const itemFadeUp = {
   hidden: { opacity: 0, y: 28 },
-  show: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.8, ease: "easeOut" },
-  },
+  show: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } },
 };
 
 const Hero = () => {
   const [text, setText] = useState("");
   const [phraseIndex, setPhraseIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
-
   const [heroImage, setHeroImage] = useState(
     localStorage.getItem("heroImage") || "light",
   );
 
-  /* -----------------------------
-     Preload Images
-  ------------------------------ */
+ 
   useEffect(() => {
-    [HeroImgLight, HeroImgDark].forEach((src) => {
-      const img = new Image();
-      img.src = src;
-    });
+    [HeroImgLight, HeroImgDark].forEach((src) => (new Image().src = src));
   }, []);
 
-  /* -----------------------------
-     Observe Theme Change
-  ------------------------------ */
+
   useEffect(() => {
     const observer = new MutationObserver(() => {
       const theme =
@@ -81,9 +60,7 @@ const Hero = () => {
     return () => observer.disconnect();
   }, []);
 
-  /* -----------------------------
-     Typing Animation
-  ------------------------------ */
+
   useEffect(() => {
     const currentPhrase = phrases[phraseIndex];
     let timer;
@@ -108,8 +85,24 @@ const Hero = () => {
     return () => clearTimeout(timer);
   }, [text, isDeleting, phraseIndex]);
 
+
+  const controls = useAnimation();
+  const [ref, inView] = useInView({ threshold: 0.3, triggerOnce: false });
+
+  useEffect(() => {
+    if (inView) {
+      controls.start("show"); 
+    } else {
+      controls.start("hidden"); 
+      setText(""); 
+      setPhraseIndex(0);
+      setIsDeleting(false);
+    }
+  }, [controls, inView]);
+
   return (
     <section
+      ref={ref}
       className="
         relative min-h-screen overflow-hidden
         px-6 lg:px-24
@@ -117,18 +110,16 @@ const Hero = () => {
         flex items-center
       "
     >
-      {/* Background Glow */}
-      <div className="absolute inset-0 -z-10">
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[700px] h-[700px] bg-cyan-400/20 blur-[160px]" />
+      <div className="absolute inset-0 -z-10 flex justify-center items-center">
+        <div className="w-[700px] h-[700px] rounded-full" />
       </div>
 
       <motion.div
         className="grid grid-cols-1 lg:grid-cols-2 items-center gap-14 w-full"
         variants={containerFade}
         initial="hidden"
-        animate="show"
+        animate={controls}
       >
-        {/* LEFT CONTENT */}
         <div>
           <motion.h1
             variants={itemFadeUp}
@@ -167,7 +158,6 @@ const Hero = () => {
           </motion.div>
         </div>
 
-        {/* RIGHT IMAGE */}
         <motion.div
           variants={itemFadeUp}
           className="flex justify-center lg:justify-end"
@@ -177,11 +167,7 @@ const Hero = () => {
             alt="Freelance Marketplace"
             className="w-full max-w-3xl h-auto rounded-3xl shadow-2xl dark:shadow-cyan-500/10"
             animate={{ y: [0, -22, 0] }}
-            transition={{
-              duration: 6,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
+            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
           />
         </motion.div>
       </motion.div>
