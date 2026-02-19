@@ -65,10 +65,6 @@ const Categories = () => {
 
   return (
     <section className="px-6 sm:px-10 lg:px-24 py-12">
-      <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-center mb-16 text-cyan-700 dark:text-pink-400/90">
-        Explore by Category
-      </h2>
-
       <div className="flex gap-6 overflow-x-auto scroll-container pb-4 snap-x snap-mandatory">
         {categories.map((cat, index) => (
           <motion.div

@@ -1,23 +1,47 @@
-import React from 'react'
-import Hero from '../../components/Hero/Hero'
-import CardSix from '../../components/CardSix/JobCards'
-import JobCards from '../../components/CardSix/JobCards'
-import Categories from '../../components/Categories/Categories'
+import React from "react";
+import Hero from "../../components/Hero/Hero";
+import Categories from "../../components/Categories/Categories";
+import JobCards from "../../components/CardSix/JobCards"; // single card
+import ReviewForm from "../../components/Reviews/ReviewForm";
+import TopReviews from "../../components/Reviews/TopReviews";
+import { useData } from "../../hooks/useData";
 
 const Home = () => {
+  const { data, loading } = useData();
+  const jobs = data.slice(0,6);
+
+  if (loading)
+    return <p className="text-center py-20 text-gray-500">Loading jobs...</p>;
+
+  if (!data?.length)
+    return <p className="text-center py-20 text-red-500">No jobs found</p>;
+
   return (
     <div>
-      <div>
-        <Hero />
+      <Hero />
+
+      <div className="mt-10">
+        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-center -mb-2 text-cyan-700 dark:text-pink-400/90">
+          Explore by Category
+        </h2>
+        <Categories />
       </div>
-      <div>
-        <Categories/>
-      </div>
-      <div className='mt-7'>
-        <JobCards limit={6} />
+
+      <div className="mt-10">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-center mb-10 bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-500">
+          Hire Experts. Deliver Exceptional Results.
+        </h2>
+
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 px-4 sm:px-6 lg:px-24">
+          {jobs.map((job) => (
+            <div key={job._id}>
+              <JobCards item={job} />
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
-}
+};
 
-export default Home
+export default Home;
