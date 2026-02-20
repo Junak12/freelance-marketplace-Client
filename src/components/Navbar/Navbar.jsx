@@ -10,7 +10,7 @@ const Navbar = () => {
   const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
   const [shadow, setShadow] = useState(false);
 
-  // Apply theme
+
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme);
     localStorage.setItem("theme", theme);
@@ -20,7 +20,7 @@ const Navbar = () => {
     setTheme(theme === "light" ? "dark" : "light");
   };
 
-  // Shadow on scroll
+
   useEffect(() => {
     const handleScroll = () => {
       setShadow(window.scrollY > 10);
@@ -61,7 +61,7 @@ const Navbar = () => {
           </div>
         </div>
 
-        {/* Desktop Menu (lg+) */}
+
         <div className="hidden lg:flex items-center gap-8">
           <NavLink to="/" className={navLinkClass}>
             Home
@@ -77,7 +77,7 @@ const Navbar = () => {
           </NavLink>
         </div>
 
-        {/* Right side */}
+
         <div className="flex items-center gap-4 sm:gap-6">
           <LuSunMoon
             onClick={handleMode}
@@ -94,7 +94,7 @@ const Navbar = () => {
             </NavLink>
           )}
 
-          {/* Hamburger → Mobile + Tablet */}
+
           <button
             onClick={() => setMenuOpen(!menuOpen)}
             className="lg:hidden text-3xl"
@@ -104,7 +104,7 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Mobile + Tablet Menu */}
+
       {menuOpen && (
         <div
           className="lg:hidden absolute top-full right-0 flex flex-col items-end gap-4 p-4
@@ -119,7 +119,7 @@ const Navbar = () => {
           </NavLink>
           <NavLink
             onClick={() => setMenuOpen(false)}
-            to="/jobs"
+            to="/AllJob"
             className={navLinkClass}
           >
             All Jobs

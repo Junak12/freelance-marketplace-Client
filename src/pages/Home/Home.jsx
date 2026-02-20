@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Hero from "../../components/Hero/Hero";
 import Categories from "../../components/Categories/Categories";
-import JobCards from "../../components/CardSix/JobCards"; // single card
+import JobCards from "../../components/CardSix/JobCards"; 
 import ReviewForm from "../../components/Reviews/ReviewForm";
 import TopReviews from "../../components/Reviews/TopReviews";
 import { useData } from "../../hooks/useData";
@@ -9,6 +9,9 @@ import { useData } from "../../hooks/useData";
 const Home = () => {
   const { data, loading } = useData();
   const jobs = data.slice(0,6);
+  useEffect(() => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
 
   if (loading)
     return <p className="text-center py-20 text-gray-500">Loading jobs...</p>;

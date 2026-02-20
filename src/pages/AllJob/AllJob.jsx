@@ -57,7 +57,7 @@ const AllJob = () => {
           <p
             className="
             mt-3 text-sm sm:text-xl font-medium 
-            text-fuchsia-500/6 dark:text-gray-400 
+            text-fuchsia-500/60 dark:text-gray-400 
             max-w-full sm:max-w-2xl
           "
           >
