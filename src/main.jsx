@@ -7,6 +7,7 @@ import Root from './pages/Root/Root.jsx';
 import Home from './pages/Home/Home.jsx';
 import "./index.css";
 import AllJob from './pages/AllJob/AllJob.jsx';
+import ViewDetails from './pages/ViewDetails/ViewDetails.jsx';
 
 const router = createBrowserRouter([
   {
@@ -20,7 +21,11 @@ const router = createBrowserRouter([
       {
         path:'/AllJob',
         Component:AllJob,
-      }
+      },
+      {
+        path:'/jobs/:id',
+        Component: ViewDetails,
+      },
     ]
   }
 ])

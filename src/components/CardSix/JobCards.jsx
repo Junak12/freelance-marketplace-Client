@@ -1,8 +1,16 @@
 import React from "react";
-import { FaDollarSign, FaClock, FaUserAlt } from "react-icons/fa";
+import {
+  FaDollarSign,
+  FaClock,
+  FaUserAlt,
+  FaLongArrowAltRight,
+} from "react-icons/fa";
+
+import { useNavigate } from "react-router";
 
 const JobCards = ({ item }) => {
   if (!item) return null;
+  const navigate = useNavigate();
 
   return (
     <div
@@ -13,6 +21,7 @@ const JobCards = ({ item }) => {
         transition-all duration-300 ease-in-out
         hover:shadow-2xl hover:scale-105
       "
+      onClick={() => navigate(`/jobs/${item._id}`)}
     >
       <div
         className="
@@ -52,8 +61,11 @@ const JobCards = ({ item }) => {
         <span className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
           <FaUserAlt /> {item.postedBy}
         </span>
-        <button className="text-cyan-600 dark:text-cyan-400 font-semibold text-sm hover:underline">
-          View Details →
+        <button
+          className="text-cyan-600 dark:text-cyan-400 font-semibold text-sm hover:underline flex items-center gap-1"
+          onClick={() => navigate(`/jobs/${item._id}`)}
+        >
+          View Details<FaLongArrowAltRight/>
         </button>
       </div>
     </div>
