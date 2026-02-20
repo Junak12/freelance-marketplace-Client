@@ -24,13 +24,6 @@ const Home = () => {
       <Hero />
 
       <div className="mt-10">
-        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-center -mb-2 text-cyan-700 dark:text-pink-400/90">
-          Explore by Category
-        </h2>
-        <Categories />
-      </div>
-
-      <div className="mt-10">
         <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-center mb-10 bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-500">
           Hire Experts. Deliver Exceptional Results.
         </h2>
@@ -42,6 +35,12 @@ const Home = () => {
             </div>
           ))}
         </div>
+      </div>
+      <div className="mx-auto mt-20">
+        <ReviewForm/>
+      </div>
+      <div className="mt-20 mb-10">
+        <TopReviews/>
       </div>
     </div>
   );
