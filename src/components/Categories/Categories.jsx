@@ -6,13 +6,10 @@ import {
   FaRobot,
   FaVideo,
   FaLanguage,
-  
 } from "react-icons/fa";
-import { FaBorderAll } from "react-icons/fa6";
-import { motion } from "framer-motion";
 import { useData } from "../../hooks/useData";
 
-const Icon = {
+const ICONS = {
   "Web Development": <FaLaptopCode />,
   Design: <FaPaintBrush />,
   "Digital Marketing": <FaBullhorn />,
@@ -23,59 +20,46 @@ const Icon = {
   "Translation & Language": <FaLanguage />,
 };
 
-const Colour = {
-  "Web Development": "bg-cyan-500",
-  Design: "bg-purple-500",
-  "Digital Marketing": "bg-pink-500",
-  "Data And AI": "bg-green-500",
-  "Mobile Development": "bg-yellow-500",
-  "Content Writing": "bg-indigo-500",
-  "Media & Video": "bg-orange-500",
-  "Translation & Language": "bg-rose-500",
-};
-
 const Categories = ({ selectedCategory, onSelect }) => {
   const { data, loading } = useData();
 
-  if (loading)
-    return <p className="text-center py-10 font-bold text-pink-700">
-      Loading Categories...
-    </p>;
+  if (loading) {
+    return (
+      <p className="text-center py-6 text-sm font-medium text-gray-500">
+        Loading categories...
+      </p>
+    );
+  }
 
-  const categoryNames = [
-    "All",
-    ...new Set(data.map(job => job.category)),
-  ];
-
-  const categories = categoryNames.map(name => ({
-    name,
-    icon: Icon[name] || <FaBorderAll/>,
-    color: Colour[name] || "bg-pink-700",
-  }));
+  const categoryNames = ["All", ...new Set(data.map((job) => job.category))];
 
   return (
-    <section className="px-6 sm:px-10 lg:px-24 py-12">
-      <div className="flex gap-6 overflow-x-auto pb-4">
-        {categories.map(cat => (
-          <motion.div
-            key={cat.name}
-            whileHover={{ scale: 1.05 }}
-            onClick={() => onSelect(cat.name)}  
-            className={`
-              flex-shrink-0 w-48 sm:w-56 lg:w-64 p-6 rounded-3xl
-              text-white cursor-pointer transition-all duration-300
-              ${cat.color}
-              ${
-                selectedCategory === cat.name
-                  ? "ring-4 ring-white/80 scale-105"
-                  : "opacity-80 hover:opacity-100"
-              }
-            `}
-          >
-            <div className="text-4xl mb-4">{cat.icon}</div>
-            <h3 className="text-xl font-bold">{cat.name}</h3>
-          </motion.div>
-        ))}
+    <section className="mt-6">
+      <div className="flex flex-wrap gap-3">
+        {categoryNames.map((name) => {
+          const active = selectedCategory === name;
+
+          return (
+            <button
+              key={name}
+              onClick={() => onSelect(name)}
+              className={`
+                flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium
+                border transition-all duration-300
+                ${
+                  active
+                    ? "bg-cyan-600 text-white border-cyan-600 shadow-md"
+                    : " text-gray-700 border-2 dark:text-gray-300 border-gray-300 dark:border-gray-950 hover:border-cyan-500 hover:text-cyan-600"
+                }
+              `}
+            >
+              {name !== "All" && (
+                <span className="text-base">{ICONS[name]}</span>
+              )}
+              {name}
+            </button>
+          );
+        })}
       </div>
     </section>
   );

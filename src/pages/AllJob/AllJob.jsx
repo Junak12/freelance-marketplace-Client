@@ -47,7 +47,7 @@ const AllJob = () => {
           Browse jobs by category and find opportunities that perfectly match
           your skills and interests.
         </p>
-        <div className="lg:-ml-22">
+        <div className="">
           <Categories
             selectedCategory={selectedCategory}
             onSelect={setSelectedCategory}

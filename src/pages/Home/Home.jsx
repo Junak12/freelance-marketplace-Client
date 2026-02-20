@@ -36,10 +36,10 @@ const Home = () => {
           ))}
         </div>
       </div>
-      <div className="mx-auto mt-20">
+      <div className="mx-auto mt-15">
         <ReviewForm/>
       </div>
-      <div className="mt-20 mb-10">
+      <div className="mt-10 mb-10">
         <TopReviews/>
       </div>
     </div>
