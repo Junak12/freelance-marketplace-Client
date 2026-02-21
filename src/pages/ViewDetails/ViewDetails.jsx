@@ -4,13 +4,15 @@ import { FaDollarSign, FaClock, FaUserAlt, FaTag } from "react-icons/fa";
 import { motion } from "framer-motion";
 import { useData } from "../../hooks/useData";
 import Swal from "sweetalert2";
+import { useAuth } from "../../hooks/useAuth";
 
 const ViewDetails = () => {
   const { id } = useParams();
   const { data, loading } = useData();
-   useEffect(() => {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }, []);
+  const { user } = useAuth();
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
 
   if (loading)
     return <p className="text-center py-20">Loading job details...</p>;
@@ -22,6 +24,15 @@ const ViewDetails = () => {
 
   const handleAcceptTask = async () => {
     try {
+      if (user.email === job.userEmail) {
+        Swal.fire({
+          icon: "warning",
+          title: "Cannot Accept",
+          text: "You cannot accept your own task.",
+          confirmButtonColor: "#f59e0b", 
+        });
+        return;
+      }
       // Here you can call your backend API to accept the task
       // Example:
       // await axios.post("/accepted-tasks", { jobId: job._id, userId: currentUserId });
@@ -74,7 +85,15 @@ const ViewDetails = () => {
                 <FaTag /> {job.category}
               </span>
             </div>
-            <p className="text-gray-700 dark:text-gray-300 text-lg leading-relaxed">
+            <div className="flex items-center gap-2">
+              <h3 className="font-semibold text-gray-800 dark:text-gray-200">
+                Contact Email:
+              </h3>
+              <p className="text-gray-700 dark:text-gray-300">
+                {job.userEmail}
+              </p>
+            </div>
+            <p className="text-gray-700 dark:text-gray-300 text-lg leading-relaxed mt-3">
               {job.taskDescription}
             </p>
           </div>

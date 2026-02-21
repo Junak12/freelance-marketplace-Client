@@ -74,7 +74,7 @@ const Navbar = () => {
           <NavLink to="/AllJob" className={navLinkClass}>
             All Jobs
           </NavLink>
-          <NavLink to="/add-job" className={navLinkClass}>
+          <NavLink to="/addjobs" className={navLinkClass}>
             Add Jobs
           </NavLink>
           <NavLink to="/my-task" className={navLinkClass}>
@@ -159,7 +159,7 @@ const Navbar = () => {
           </NavLink>
           <NavLink
             onClick={() => setMenuOpen(false)}
-            to="/add-job"
+            to="/addjobs"
             className={navLinkClass}
           >
             Add Jobs

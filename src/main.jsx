@@ -9,6 +9,8 @@ import "./index.css";
 import AllJob from './pages/AllJob/AllJob.jsx';
 import ViewDetails from './pages/ViewDetails/ViewDetails.jsx';
 import Login from './pages/Login/Login.jsx';
+import AddJob from './pages/AddJob/AddJob.jsx';
+import PrivateRoute from './components/PrivateRoute/PrivateRoute.jsx';
 
 const router = createBrowserRouter([
   {
@@ -30,7 +32,11 @@ const router = createBrowserRouter([
       {
         path:'/login',
         Component:Login,
-      }
+      },
+      {
+        path:'/addjobs',
+        element: <PrivateRoute> <AddJob></AddJob> </PrivateRoute>
+      },
     ]
   }
 ])
