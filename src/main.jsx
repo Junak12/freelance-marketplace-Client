@@ -8,6 +8,7 @@ import Home from './pages/Home/Home.jsx';
 import "./index.css";
 import AllJob from './pages/AllJob/AllJob.jsx';
 import ViewDetails from './pages/ViewDetails/ViewDetails.jsx';
+import Login from './pages/Login/Login.jsx';
 
 const router = createBrowserRouter([
   {
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
         path:'/jobs/:id',
         Component: ViewDetails,
       },
+      {
+        path:'/login',
+        Component:Login,
+      }
     ]
   }
 ])
