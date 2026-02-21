@@ -51,6 +51,8 @@ const Login = () => {
       setTimeout(() => {
         navigate(from, { replace: true });
       }, 1200);
+
+      
     } catch (error) {
       Swal.fire({
         icon: "error",

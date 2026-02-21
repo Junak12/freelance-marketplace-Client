@@ -10,6 +10,7 @@ import {
 } from "firebase/auth";
 import Swal from "sweetalert2";
 import { auth } from "../../firebase.init";
+import useAxios from "../../hooks/useAxios";
 
 export const AuthContext = createContext(null);
 
@@ -18,12 +19,25 @@ export const AuthContext = createContext(null);
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const instance = useAxios();
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
       setLoading(false);
+
+
+    if (currentUser) {
+      const UserInformation = {
+        name: currentUser?.displayName,
+        email: currentUser?.email,
+        image: currentUser?.photoURL,
+        token: currentUser?.accessToken,
+      };
+      instance.post("/users", UserInformation);
+    }
     });
+
 
     return unsubscribe;
   }, []);
