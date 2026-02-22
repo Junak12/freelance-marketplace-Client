@@ -3,9 +3,11 @@ import { motion } from "framer-motion";
 import { useAuth } from "../../hooks/useAuth";
 import useAxios from "../../hooks/useAxios";
 import Swal from "sweetalert2";
+import { useData } from "../../hooks/useData";
 
 const AddJob = () => {
   const { user } = useAuth();
+  const { setData, fetchData } = useData();
   const instance = useAxios();
 
   const [title, setTitle] = useState("");
@@ -42,6 +44,7 @@ const AddJob = () => {
 
     try {
       const res = await instance.post("/addjobs", jobData);
+      fetchData();
 
       Swal.fire({
         icon: "success",
