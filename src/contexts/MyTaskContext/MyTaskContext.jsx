@@ -13,23 +13,21 @@ export const MyTaskProvider = ({children}) => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
+   const fetchTask = async () => {
+     if (!user?.email) return;
+     try {
+       setLoading(true);
+       const res = await instance.get(`/my-task-collection/${user.email}`);
+       setTasks(res.data);
+     } catch (err) {
+       setError("Failed to load accepted tasks");
+     } finally {
+       setLoading(false);
+     }
+   };
+
     useEffect(() => {
-        if (!user?.email) return;
-        const fetchData = async() => {
-            try {
-                setLoading(true);
-                const res = await instance.get(
-                  `/my-task-collection/${user.email}`,
-                );
-                setTasks(res.data);
-            } catch (error) {
-                setError("Failed to load accepted tasks");
-            }
-            finally{
-                setLoading(false);
-            }
-        }
-        fetchData();
+        fetchTask();
     }, [user, instance]);
     return (
         <MyTaskContext.Provider 
@@ -37,6 +35,7 @@ export const MyTaskProvider = ({children}) => {
             tasks, 
             loading,
             error,
+            fetchTask,
         }}
         >
             {children}

@@ -6,12 +6,14 @@ import { useData } from "../../hooks/useData";
 import Swal from "sweetalert2";
 import { useAuth } from "../../hooks/useAuth";
 import useAxios from "../../hooks/useAxios";
+import { useTask } from "../../hooks/useTask";
 
 const ViewDetails = () => {
   const instance = useAxios();
   const { id } = useParams();
   const { data, loading } = useData();
   const { user } = useAuth();
+  const {fetchTask} = useTask();
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
@@ -68,6 +70,8 @@ const ViewDetails = () => {
       };
 
       await instance.post("/my-task-collection", acceptedTask);
+      fetchTask();
+
       
       Swal.fire({
         icon: "success",
