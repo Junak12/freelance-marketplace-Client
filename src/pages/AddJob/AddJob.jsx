@@ -51,7 +51,6 @@ const AddJob = () => {
         showConfirmButton: false,
       });
 
-      // Reset form
       setTitle("");
       setPostedBy("");
       setCategory("");

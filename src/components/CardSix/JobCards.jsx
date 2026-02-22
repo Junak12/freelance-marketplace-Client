@@ -4,7 +4,9 @@ import {
   FaClock,
   FaUserAlt,
   FaLongArrowAltRight,
+  FaCheckCircle,
 } from "react-icons/fa";
+import { FcAcceptDatabase } from "react-icons/fc";
 
 import { useNavigate } from "react-router";
 
@@ -56,6 +58,34 @@ const JobCards = ({ item }) => {
           {item.taskDescription}
         </p>
       </div>
+      <div className="inline-block px-4  lg:px-6 py-4">
+        {item.status === "open" || item.status === "Open" ? (
+          <div className="flex items-center gap-1">
+            <FaCheckCircle className="text-lg text-green-500" />
+            <span className="px-4 py-1 rounded-full bg-green-600 text-white font-semibold text-sm shadow-md border border-green-700">
+              {item.status}
+            </span>
+          </div>
+        ) : null}
+
+        {item.status === "accepted" || item.status === "Accepted" ? (
+          <div className="flex items-center gap-1">
+            <FcAcceptDatabase className="text-lg" />
+            <span className="px-4 py-1 rounded-full bg-blue-600 text-white font-semibold text-sm shadow-md border border-blue-700">
+              {item.status}
+            </span>
+          </div>
+        ) : null}
+
+        {item.status === "completed" || item.status === "Completed" ? (
+          <div className="flex items-center gap-1">
+            <FcAcceptDatabase className="text-lg" />
+            <span className="px-4 py-1 rounded-full bg-gray-600 text-white font-semibold text-sm shadow-md border border-gray-700">
+              {item.status}
+            </span>
+          </div>
+        ) : null}
+      </div>
 
       <div className="px-4 sm:px-6 py-3 border-t border-gray-300 dark:border-gray-600 flex items-center justify-between">
         <span className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
@@ -65,7 +95,8 @@ const JobCards = ({ item }) => {
           className="text-cyan-600 dark:text-cyan-400 font-semibold text-sm hover:underline flex items-center gap-1"
           onClick={() => navigate(`/jobs/${item._id}`)}
         >
-          View Details<FaLongArrowAltRight/>
+          View Details
+          <FaLongArrowAltRight />
         </button>
       </div>
     </div>

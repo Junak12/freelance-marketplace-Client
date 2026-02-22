@@ -11,6 +11,7 @@ import ViewDetails from './pages/ViewDetails/ViewDetails.jsx';
 import Login from './pages/Login/Login.jsx';
 import AddJob from './pages/AddJob/AddJob.jsx';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute.jsx';
+import MyAcceptedTask from './pages/MyAcceptedTask/MyAcceptedTask.jsx';
 
 const router = createBrowserRouter([
   {
@@ -37,6 +38,10 @@ const router = createBrowserRouter([
         path:'/addjobs',
         element: <PrivateRoute> <AddJob></AddJob> </PrivateRoute>
       },
+      {
+        path:'/my-accepted-task',
+        element: <PrivateRoute> <MyAcceptedTask/> </PrivateRoute>
+      }
     ]
   }
 ])

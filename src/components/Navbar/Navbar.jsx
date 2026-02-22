@@ -77,7 +77,7 @@ const Navbar = () => {
           <NavLink to="/addjobs" className={navLinkClass}>
             Add Jobs
           </NavLink>
-          <NavLink to="/my-task" className={navLinkClass}>
+          <NavLink to="/my-accepted-task" className={navLinkClass}>
             My Accepted Task
           </NavLink>
         </div>
@@ -166,7 +166,7 @@ const Navbar = () => {
           </NavLink>
           <NavLink
             onClick={() => setMenuOpen(false)}
-            to="/my-task"
+            to="/my-accepted-task"
             className={navLinkClass}
           >
             My Accepted Task

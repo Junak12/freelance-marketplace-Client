@@ -5,8 +5,10 @@ import { motion } from "framer-motion";
 import { useData } from "../../hooks/useData";
 import Swal from "sweetalert2";
 import { useAuth } from "../../hooks/useAuth";
+import useAxios from "../../hooks/useAxios";
 
 const ViewDetails = () => {
+  const instance = useAxios();
   const { id } = useParams();
   const { data, loading } = useData();
   const { user } = useAuth();
@@ -29,14 +31,44 @@ const ViewDetails = () => {
           icon: "warning",
           title: "Cannot Accept",
           text: "You cannot accept your own task.",
-          confirmButtonColor: "#f59e0b", 
+          confirmButtonColor: "#f59e0b",
         });
         return;
       }
-      // Here you can call your backend API to accept the task
-      // Example:
-      // await axios.post("/accepted-tasks", { jobId: job._id, userId: currentUserId });
 
+      if (job.status !== "Open" && job.status !== "open") {
+        Swal.fire({
+          icon: "warning",
+          title: "Cannot Accept",
+          text: "Already Booked.",
+          confirmButtonColor: "#f59e0b",
+        });
+        return;
+      }
+      await instance.put(`AllJobs/${id}/accept`, {
+        acceptedBy: user.email,
+        status: "Accepted",
+      });
+
+      const acceptedTask = {
+        jobId: job._id,
+        title: job.title,
+        category: job.category,
+        budget: job.budget,
+        currency: job.currency,
+        deadline: job.deadline,
+
+        clientEmail: job.userEmail,
+        clientName: job.postedBy,
+
+        freelancerEmail: user.email,
+
+        status: "accepted",
+        acceptedAt: new Date(),
+      };
+
+      await instance.post("/my-task-collection", acceptedTask);
+      
       Swal.fire({
         icon: "success",
         title: "Task Accepted!",
