@@ -16,11 +16,11 @@ export const MyAddedProvider = ({children}) => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    const fetchData = async() => {
+    const fetcAddedhData = async() => {
         if (!user?.email) return;
         try {
             setLoading(true);
-            const result = await instance.get(`/my-add-job/${email}`);
+            const result = await instance.get(`/my-add-job/${user.email}`);
             setAddedTasks(result.data);
         } catch (error) {
             setError("Failed to load accepted tasks");
@@ -31,19 +31,19 @@ export const MyAddedProvider = ({children}) => {
     }
 
     useEffect(()=> {
-        fetchData();
+        fetcAddedhData();
     },[instance, user])
 
     return (
-        <MyAddedContext.Provider
-            value={{
-                addedTasks,
-                loading,
-                error,
-                fetchData,
-            }}
-        >
-            {children}
-        </MyAddedContext.Provider>
-    )
+      <MyAddedContext.Provider
+        value={{
+          addedTasks,
+          loading,
+          error,
+          fetcAddedhData,
+        }}
+      >
+        {children}
+      </MyAddedContext.Provider>
+    );
 }

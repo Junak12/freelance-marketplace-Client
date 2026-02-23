@@ -4,11 +4,13 @@ import { useAuth } from "../../hooks/useAuth";
 import useAxios from "../../hooks/useAxios";
 import Swal from "sweetalert2";
 import { useData } from "../../hooks/useData";
+import { useAddedTask } from "../../hooks/useAddedTask";
 
 const AddJob = () => {
   const { user } = useAuth();
   const { setData, fetchData } = useData();
   const instance = useAxios();
+  const { fetcAddedhData } = useAddedTask();
 
   const [title, setTitle] = useState("");
   const [postedBy, setPostedBy] = useState("");
@@ -40,11 +42,14 @@ const AddJob = () => {
       userEmail: user?.email || "anonymous",
       status: "open",
       acceptedBy: null,
+      createdAt: new Date(),
+      updatedAt: new Date(),
     };
 
     try {
       const res = await instance.post("/addjobs", jobData);
       fetchData();
+      fetcAddedhData();
 
       Swal.fire({
         icon: "success",
