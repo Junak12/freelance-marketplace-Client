@@ -12,39 +12,51 @@ import Login from './pages/Login/Login.jsx';
 import AddJob from './pages/AddJob/AddJob.jsx';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute.jsx';
 import MyAcceptedTask from './pages/MyAcceptedTask/MyAcceptedTask.jsx';
+import MyAddedTask from './pages/MyAddedTask/MyAddedTask.jsx';
 
 const router = createBrowserRouter([
   {
-    path:"/",
-    Component:Root,
-    children : [
+    path: "/",
+    Component: Root,
+    children: [
       {
-        index:true,
-        Component:Home,
+        index: true,
+        Component: Home,
       },
       {
-        path:'/AllJob',
-        Component:AllJob,
+        path: "/AllJob",
+        Component: AllJob,
       },
       {
-        path:'/jobs/:id',
+        path: "/jobs/:id",
         Component: ViewDetails,
       },
       {
-        path:'/login',
-        Component:Login,
+        path: "/login",
+        Component: Login,
       },
       {
-        path:'/addjobs',
-        element: <PrivateRoute> <AddJob></AddJob> </PrivateRoute>
+        path: "/addjobs",
+        element: <PrivateRoute>
+            <AddJob />
+          </PrivateRoute>,
       },
       {
-        path:'/my-accepted-task',
-        element: <PrivateRoute> <MyAcceptedTask/> </PrivateRoute>
-      }
-    ]
-  }
-])
+        path: "/my-accepted-task",
+        element: <PrivateRoute>
+            <MyAcceptedTask />
+          </PrivateRoute>
+
+      },
+      {
+        path: "/my-added-jobs",
+        element:<PrivateRoute>
+          <MyAddedTask/>
+        </PrivateRoute>
+      },
+    ],
+  },
+]);
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
