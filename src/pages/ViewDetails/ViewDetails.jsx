@@ -11,9 +11,10 @@ import { useTask } from "../../hooks/useTask";
 const ViewDetails = () => {
   const instance = useAxios();
   const { id } = useParams();
-  const { data, loading } = useData();
+  const { data, loading, setData } = useData();
   const { user } = useAuth();
-  const {fetchTask} = useTask();
+  const { fetchTask } = useTask();
+
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
@@ -38,7 +39,7 @@ const ViewDetails = () => {
         return;
       }
 
-      if (job.status !== "Open" && job.status !== "open") {
+      if (job.status.toLowerCase() !== "open") {
         Swal.fire({
           icon: "warning",
           title: "Cannot Accept",
@@ -47,10 +48,18 @@ const ViewDetails = () => {
         });
         return;
       }
+
       await instance.put(`AllJobs/${id}/accept`, {
         acceptedBy: user.email,
         status: "Accepted",
       });
+
+      const updatedData = data.map((j) =>
+        j._id === job._id
+          ? { ...j, status: "Accepted", acceptedBy: user.email }
+          : j,
+      );
+      setData(updatedData);
 
       const acceptedTask = {
         jobId: job._id,
@@ -59,20 +68,15 @@ const ViewDetails = () => {
         budget: job.budget,
         currency: job.currency,
         deadline: job.deadline,
-
         clientEmail: job.userEmail,
         clientName: job.postedBy,
-
         freelancerEmail: user.email,
-
         status: "accepted",
         acceptedAt: new Date(),
       };
-
       await instance.post("/my-task-collection", acceptedTask);
       fetchTask();
 
-      
       Swal.fire({
         icon: "success",
         title: "Task Accepted!",
@@ -88,6 +92,8 @@ const ViewDetails = () => {
       });
     }
   };
+
+  const isAcceptDisabled = job.status.toLowerCase() !== "open";
 
   return (
     <motion.div
@@ -136,9 +142,14 @@ const ViewDetails = () => {
 
           <button
             onClick={handleAcceptTask}
-            className="mt-6 w-full lg:w-1/2 py-4 bg-cyan-500 hover:bg-cyan-600 text-white font-bold text-lg rounded-xl transition-all duration-300 shadow-lg"
+            disabled={isAcceptDisabled}
+            className={`mt-6 w-full lg:w-1/2 py-4 text-white font-bold text-lg rounded-xl transition-all duration-300 shadow-lg ${
+              isAcceptDisabled
+                ? "bg-gray-400 cursor-not-allowed"
+                : "bg-cyan-500 hover:bg-cyan-600"
+            }`}
           >
-            Accept Task
+            {isAcceptDisabled ? "Already Booked" : "Accept Task"}
           </button>
         </div>
       </div>
@@ -147,7 +158,7 @@ const ViewDetails = () => {
         <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
           Job Details
         </h2>
-        <div className="p-6 rounded-2xl  shadow-2xl space-y-4 border-2 border-[#0f546d] dark:border-cyan-400">
+        <div className="p-6 rounded-2xl shadow-2xl space-y-4 border-2 border-[#0f546d] dark:border-cyan-400">
           <div>
             <h3 className="font-semibold text-gray-800 dark:text-gray-200">
               Budget:
