@@ -143,14 +143,14 @@ const Hero = () => {
             className="mt-10 flex flex-wrap gap-5"
           >
             <Link
-              to="/create-job"
+              to="/addjobs"
               className="px-8 py-4 bg-cyan-700 hover:bg-cyan-800 text-white font-semibold rounded-xl shadow-lg transition-all duration-300 hover:-translate-y-1"
             >
               Create a Job
             </Link>
 
             <Link
-              to="/explore"
+              to="/AllJob"
               className="px-8 py-4 border border-cyan-700 text-cyan-700 dark:text-cyan-400 dark:border-cyan-400 font-semibold rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-300 hover:-translate-y-1"
             >
               Explore Marketplace
