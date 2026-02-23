@@ -4,14 +4,16 @@ import Footer from "../../components/Footer/Footer";
 import { DataProvider } from "../../contexts/DataContext/DataContext";
 import { AuthProvider } from "../../contexts/AuthContext/AuthContext";
 import { MyTaskProvider } from "../../contexts/MyTaskContext/MyTaskContext";
+import { MyAddedProvider } from "../../contexts/MyAddedContext/MyAddedContext";
 
 const Root = () => {
   return (
-      <DataProvider>
-        <AuthProvider>
-          <MyTaskProvider>
-          <div
-            className="
+    <DataProvider>
+      <AuthProvider>
+        <MyTaskProvider>
+          <MyAddedProvider>
+            <div
+              className="
           min-h-screen
           px-2 py-2 md:px-3 md:py-3 lg:px-4 lg:py-4
           bg-gradient-to-b
@@ -24,20 +26,21 @@ const Root = () => {
           dark:to-slate-950
           transition-colors duration-700
         "
-          >
-            <div className="fixed top-0 left-0 w-full z-50 lg:py-3">
-              <Navbar />
+            >
+              <div className="fixed top-0 left-0 w-full z-50 lg:py-3">
+                <Navbar />
+              </div>
+
+              <main className="pt-24">
+                <Outlet />
+              </main>
+
+              <Footer />
             </div>
-
-            <main className="pt-24">
-              <Outlet />
-            </main>
-
-            <Footer />
-          </div>
-          </MyTaskProvider>
-        </AuthProvider>
-      </DataProvider>
+          </MyAddedProvider>
+        </MyTaskProvider>
+      </AuthProvider>
+    </DataProvider>
   );
 };
 
