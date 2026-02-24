@@ -39,7 +39,7 @@ const AllJob = () => {
       className="px-4 sm:px-6 md:px-10 lg:px-16"
     >
       <section className="my-6 sm:my-8 md:my-10">
-        <h2 className="text-2xl sm:text-4xl font-bold text-cyan-800 dark:text-pink-500">
+        <h2 className="text-2xl sm:text-4xl font-bold tracking-tight dark:text-cyan-400 text-cyan-700">
           Explore Job By Categories
         </h2>
 

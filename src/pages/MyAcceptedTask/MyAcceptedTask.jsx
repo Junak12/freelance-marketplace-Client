@@ -24,7 +24,7 @@ const MyAcceptedTask = () => {
       transition={{ duration: 0.4 }}
       className="max-w-6xl mx-auto px-4 py-10"
     >
-      <h2 className="text-2xl dark:text-pink-500 font-bold mb-6">
+      <h2 className="text-3xl tracking-tight dark:text-cyan-400 text-cyan-700 font-bold mb-6">
         My Accepted Tasks
       </h2>
 

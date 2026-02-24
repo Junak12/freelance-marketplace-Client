@@ -14,7 +14,7 @@ const containerVariants = {
 
 const MyAddedTask = () => {
   const { fetcAddedhData, addedTasks } = useAddedTask();
-  const { fetchData } = useData();;
+  const { fetchData } = useData();
   const instance = useAxios();
 
   useEffect(() => {
@@ -78,7 +78,7 @@ const MyAddedTask = () => {
       className="max-w-7xl mx-auto px-4 py-8"
     >
       <div className="flex items-center justify-between mb-6">
-        <h2 className="text-2xl font-semibold dark:text-pink-500 text-gray-800">
+        <h2 className="text-3xl font-semibold tracking-tight dark:text-cyan-400 text-cyan-700">
           My Added Tasks
         </h2>
 
@@ -94,6 +94,7 @@ const MyAddedTask = () => {
         <table className="w-full text-left">
           <thead className="border border-cyan-400 text-lg dark:text-white">
             <tr>
+              <th className="px-5 py-3 font-medium">Cover Image</th>
               <th className="px-5 py-3 font-medium">Title</th>
               <th className="px-5 py-3 font-medium">Category</th>
               <th className="px-5 py-3 font-medium">Budget</th>
@@ -112,6 +113,19 @@ const MyAddedTask = () => {
                 }
                 className="border border-cyan-400 text-md text-slate-500 dark:text-white hover:bg-gray-50 dark:hover:bg-slate-700"
               >
+                <td className="px-5 py-4">
+                  {job.coverImage ? (
+                    <img
+                      src={job.coverImage}
+                      alt={job.title}
+                      className="w-16 h-16 object-cover rounded-lg"
+                    />
+                  ) : (
+                    <div className="w-16 h-16 bg-gray-200 dark:bg-gray-700 rounded-lg flex items-center justify-center text-gray-500 dark:text-gray-300 text-xs">
+                      No Image
+                    </div>
+                  )}
+                </td>
                 <td className="px-5 py-4">{job.title}</td>
                 <td className="px-5 py-4">{job.category}</td>
                 <td className="px-5 py-4">${job.budget}</td>

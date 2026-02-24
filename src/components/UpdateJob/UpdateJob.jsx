@@ -113,7 +113,7 @@ const UpdateJob = () => {
       className="max-w-4xl mx-auto px-4 py-6 border border-cyan-400 rounded-xl shadow-4xl"
     >
       <div className="rounded-2xl p-4 md:p-6">
-        <h2 className="text-2xl font-bold mb-6 text-gray-800 dark:text-pink-500">
+        <h2 className="text-3xl tracking-tight dark:text-cyan-400 text-cyan-700 font-bold mb-6">
           Update Job Details
         </h2>
 

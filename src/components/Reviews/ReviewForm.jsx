@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { FaStar } from "react-icons/fa";
 import Swal from "sweetalert2";
 import useAxios from "../../hooks/useAxios";
+import { useAuth } from "../../hooks/useAuth";
+
 
 const ReviewForm = () => {
+  const { user } = useAuth();
   const [name, setName] = useState("");
   const [rating, setRating] = useState(0);
   const [hover, setHover] = useState(0);
@@ -13,6 +16,17 @@ const ReviewForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!user) {
+      Swal.fire({
+        icon: "warning",
+        title: "Login Required",
+        text: "You must be logged in to submit a review.",
+        confirmButtonColor: "#06b6d4",
+      });
+      return;
+    }
+
     if (!name || !text || rating === 0) {
       Swal.fire({
         icon: "warning",
@@ -63,6 +77,7 @@ const ReviewForm = () => {
           placeholder="Your Name"
           value={name}
           onChange={(e) => setName(e.target.value)}
+          disabled={!user}
           className="p-4 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500"
         />
 
@@ -71,6 +86,7 @@ const ReviewForm = () => {
           value={text}
           onChange={(e) => setText(e.target.value)}
           rows={5}
+          disabled={!user}
           className="p-4 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500"
         />
 
@@ -83,9 +99,10 @@ const ReviewForm = () => {
               <button
                 key={i}
                 type="button"
-                onClick={() => setRating(starValue)}
-                onMouseEnter={() => setHover(starValue)}
-                onMouseLeave={() => setHover(0)}
+                onClick={() => user && setRating(starValue)}
+                onMouseEnter={() => user && setHover(starValue)}
+                onMouseLeave={() => user && setHover(0)}
+                disabled={!user}
                 className="focus:outline-none transform transition-all duration-200"
               >
                 <FaStar
@@ -103,7 +120,7 @@ const ReviewForm = () => {
 
         <button
           type="submit"
-          disabled={loading}
+          disabled={loading || !user}
           className="bg-cyan-500 hover:bg-cyan-600 text-white font-bold py-4 px-6 rounded-xl transition-all duration-300 disabled:opacity-50"
         >
           {loading ? "Submitting..." : "Submit Review"}
