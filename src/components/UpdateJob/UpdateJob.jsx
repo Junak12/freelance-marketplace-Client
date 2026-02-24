@@ -205,7 +205,6 @@ const UpdateJob = () => {
             />
           </div>
 
-
           <div>
             <label className="block mb-1 font-medium dark:text-cyan-400 text-black">
               Job Status
@@ -221,7 +220,6 @@ const UpdateJob = () => {
               <option value="completed">Completed</option>
             </select>
           </div>
-
 
           <div className="md:col-span-2">
             <label className="block mb-1 font-medium dark:text-cyan-400 text-black">
@@ -255,19 +253,20 @@ const UpdateJob = () => {
             )}
           </div>
 
-
           <div className="md:col-span-2 flex flex-col md:flex-row justify-end gap-3 mt-4">
             <button
               type="button"
               onClick={() => navigate(-1)}
-              className="px-6 py-2 bg-red-600 text-white rounded-lg border border-slate-400 w-full md:w-auto"
+              className="px-6 py-2 bg-red-600 text-white rounded-lg border border-slate-400 w-full md:w-auto
+              cursor-pointer hover:scale-105 transition-all"
             >
               Cancel
             </button>
 
             <button
               type="submit"
-              className="px-8 py-2 rounded-lg bg-cyan-700 text-white hover:bg-cyan-800 w-full md:w-auto"
+              className="px-8 py-2 rounded-lg bg-cyan-700 text-white hover:bg-cyan-800 w-full md:w-auto
+              cursor-pointer hover:scale-105 transition-all"
             >
               Update Job
             </button>
