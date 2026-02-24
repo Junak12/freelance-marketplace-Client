@@ -5,6 +5,7 @@ import Swal from "sweetalert2";
 import axios from "axios";
 import useAxios from "../../hooks/useAxios";
 import { useData } from "../../hooks/useData";
+import { Link } from "react-router";
 
 const containerVariants = {
   hidden: { opacity: 0, y: 20 },
@@ -81,9 +82,12 @@ const MyAddedTask = () => {
           My Added Tasks
         </h2>
 
-        <button className="px-4 py-2 text-md cursor-pointer font-bold rounded-md border bg-cyan-800 border-gray-300 text-white hover:border-gray-400 hover:scale-105 transition">
+        <Link
+          to={"/addjobs"}
+          className="px-4 py-2 text-md cursor-pointer font-bold rounded-md border bg-cyan-800 border-gray-300 text-white hover:border-gray-400 hover:scale-105 transition"
+        >
           Add New Task
-        </button>
+        </Link>
       </div>
 
       <div className="overflow-x-auto border border-gray-200 rounded-lg">
@@ -113,9 +117,12 @@ const MyAddedTask = () => {
                 <td className="px-5 py-4">${job.budget}</td>
                 <td className="px-5 py-4">{job.status}</td>
                 <td className="px-5 py-4 text-right space-x-3">
-                  <button className="bg-cyan-700 text-white px-3 py-1 cursor-pointer rounded-xl hover:scale-105 transition-all">
+                  <Link
+                    to={`/my-added-jobs/${job._id}`}
+                    className="bg-cyan-700 text-white px-3 py-1 cursor-pointer rounded-xl hover:scale-105 transition-all"
+                  >
                     Edit
-                  </button>
+                  </Link>
                   <button
                     className="text-white bg-red-700 px-3 py-1 cursor-pointer rounded-xl hover:scale-105 transition-all"
                     onClick={() => handleDelete(job._id)}
