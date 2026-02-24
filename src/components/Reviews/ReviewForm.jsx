@@ -63,7 +63,7 @@ const ReviewForm = () => {
   };
 
   return (
-    <section className="px-6 sm:px-10 lg:px-24 py-16 rounded-3xl">
+    <section className="px-6 sm:px-10 lg:px-16 py-12 rounded-3xl">
       <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-center mb-10 text-gray-900 dark:text-white">
         Submit Your Review
       </h2>

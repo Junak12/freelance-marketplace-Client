@@ -37,7 +37,7 @@ const Home = () => {
             </div>
           ))}
         </div>
-        <div className="flex items-center justify-center mt-6 lg:mt-6">
+        <div className="flex items-center justify-center mt-6 lg:mt-9">
           <button
             className="text-xl border px-6 py-2 rounded-2xl bg-cyan-700 text-white font-semibold
           cursor-pointer hover:scale-110 transition-all"

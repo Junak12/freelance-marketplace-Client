@@ -2,10 +2,10 @@ import React, { useEffect } from "react";
 import { motion } from "framer-motion";
 import { useAddedTask } from "../../hooks/useAddedTask";
 import Swal from "sweetalert2";
-import axios from "axios";
 import useAxios from "../../hooks/useAxios";
 import { useData } from "../../hooks/useData";
 import { Link } from "react-router";
+import { useTask } from "../../hooks/useTask";
 
 const containerVariants = {
   hidden: { opacity: 0, y: 20 },
@@ -41,8 +41,6 @@ const MyAddedTask = () => {
       const res = await instance.delete(`my-added-jobs/${taskId}`, {
         headers: { "Content-Type": "application/json" },
       });
-      fetchData();
-      fetcAddedhData();
       const deletedCount = res?.data?.deletedCount ?? 0;
 
       if (deletedCount > 0) {
@@ -53,6 +51,8 @@ const MyAddedTask = () => {
           timer: 1500,
           showConfirmButton: false,
         });
+        fetchData();
+        fetcAddedhData();
       } else {
         Swal.fire({
           icon: "error",
@@ -99,6 +99,8 @@ const MyAddedTask = () => {
               <th className="px-5 py-3 font-medium">Category</th>
               <th className="px-5 py-3 font-medium">Budget</th>
               <th className="px-5 py-3 font-medium">Status</th>
+              <th className="px-5 py-3 font-medium">Accepted By</th>{" "}
+              {/* New Column */}
               <th className="px-5 py-3 font-medium text-right">Action</th>
             </tr>
           </thead>
@@ -130,19 +132,23 @@ const MyAddedTask = () => {
                 <td className="px-5 py-4">{job.category}</td>
                 <td className="px-5 py-4">${job.budget}</td>
                 <td className="px-5 py-4">{job.status}</td>
-                <td className="px-5 py-4 text-right space-x-3">
-                  <Link
-                    to={`/my-added-jobs/${job._id}`}
-                    className="bg-cyan-700 text-white px-3 py-1 cursor-pointer rounded-xl hover:scale-105 transition-all"
-                  >
-                    Edit
-                  </Link>
-                  <button
-                    className="text-white bg-red-700 px-3 py-1 cursor-pointer rounded-xl hover:scale-105 transition-all"
-                    onClick={() => handleDelete(job._id)}
-                  >
-                    Delete
-                  </button>
+                <td className="px-5 py-4">{job.acceptedBy || "—"}</td>{" "}
+                {/* Display Accepted By */}
+                <td className="px-5 py-4 text-right">
+                  <div className="inline-flex items-center justify-end gap-2">
+                    <Link
+                      to={`/my-added-jobs/${job._id}`}
+                      className="bg-cyan-700 text-white px-3 py-1 cursor-pointer rounded-xl hover:scale-105 transition-all"
+                    >
+                      Edit
+                    </Link>
+                    <button
+                      className="text-white bg-red-700 px-3 py-1 cursor-pointer rounded-xl hover:scale-105 transition-all"
+                      onClick={() => handleDelete(job._id)}
+                    >
+                      Delete
+                    </button>
+                  </div>
                 </td>
               </tr>
             ))}

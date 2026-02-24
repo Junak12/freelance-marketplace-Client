@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import useAxios from "../../hooks/useAxios";
 import { useAddedTask } from "../../hooks/useAddedTask";
 import { useData } from "../../hooks/useData";
+import { useTask } from "../../hooks/useTask";
 
 const UpdateJob = () => {
   const { id } = useParams();
@@ -12,6 +13,7 @@ const UpdateJob = () => {
   const instance = useAxios();
   const { fetcAddedhData } = useAddedTask();
   const { fetchData } = useData();
+  const { fetchTask } = useTask();
 
   const [loading, setLoading] = useState(true);
   const [job, setJob] = useState({
@@ -74,6 +76,16 @@ const UpdateJob = () => {
     }
 
     try {
+      if (job.acceptedBy !== "") {
+        Swal.fire({
+          icon: "warning",
+          title: "Cannot Update",
+          text: "This job has already been accepted!",
+          timer: 1500,
+          showConfirmButton: false,
+        });
+        return;
+      }
       const res = await instance.put(`/my-added-jobs/${id}/accept`, job);
 
       if (res.data.modifiedCount > 0) {
@@ -87,6 +99,7 @@ const UpdateJob = () => {
         navigate("/my-added-jobs");
         fetcAddedhData();
         fetchData();
+        fetchTask();
       } else {
         Swal.fire("No Changes", "Nothing was updated", "info");
       }
@@ -215,9 +228,15 @@ const UpdateJob = () => {
               onChange={handleChange}
               className="w-full px-2 py-1 rounded-xl outline outline-1 outline-cyan-200 dark:text-white"
             >
-              <option value="open">Open</option>
-              <option value="in progress">In Progress</option>
-              <option value="completed">Completed</option>
+              <option className="bg-cyan-200 text-black" value="open">
+                Open
+              </option>
+              <option className="bg-cyan-200 text-black" value="in progress">
+                In Progress
+              </option>
+              <option className="bg-cyan-200 text-black" value="completed">
+                Completed
+              </option>
             </select>
           </div>
 

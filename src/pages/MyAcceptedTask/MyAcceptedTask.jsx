@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useEffect } from "react";
 import { motion } from "framer-motion";
 import { useTask } from "../../hooks/useTask";
 
@@ -35,18 +35,37 @@ const MyAcceptedTask = () => {
           {tasks.map((task) => (
             <div
               key={task._id}
-              className="p-5 rounded-2xl shadow border border-cyan-400"
+              className="p-5 rounded-2xl shadow border border-cyan-400 dark:border-cyan-500"
             >
               <h3 className="font-semibold text-lg dark:text-cyan-500">
                 {task.title}
               </h3>
-              <p className="text-sm text-gray-500 dark:text-red-500 ">
+
+              <p className="text-sm text-gray-500 dark:text-red-500">
                 {task.category}
               </p>
+
+              {/* NEW FIELDS */}
+              <p className="text-sm mt-1 dark:text-gray-200">
+                <span className="font-semibold">Deadline:</span>{" "}
+                {task.deadline
+                  ? new Date(task.deadline).toLocaleDateString(undefined, {
+                      year: "numeric",
+                      month: "short",
+                      day: "numeric",
+                    })
+                  : "—"}
+              </p>
+              <p className="text-sm mt-1 dark:text-gray-200">
+                <span className="font-semibold">Posted By:</span>{" "}
+                {task.clientEmail || "—"}
+              </p>
+
               <p className="mt-2 dark:text-white">
                 {task.currency} {task.budget}
               </p>
-              <span className="inline-block mt-3 px-3 py-1 rounded-full bg-green-100 text-green-700 text-sm">
+
+              <span className="inline-block mt-3 px-3 py-1 rounded-full bg-green-100 text-green-700 text-sm dark:bg-green-800 dark:text-green-200">
                 {task.status}
               </span>
             </div>
