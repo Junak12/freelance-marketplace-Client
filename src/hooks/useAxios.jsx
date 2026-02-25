@@ -1,9 +1,12 @@
-import axios from 'axios'
+import axios from "axios";
+
+// Create Axios instance pointing to your deployed backend
 const instance = axios.create({
-  baseURL: "http://localhost:5000",
+  baseURL: import.meta.env.VITE_API_URL, // use the .env variable
 });
 
 const useAxios = () => {
-    return instance;
-}
+  return instance;
+};
+
 export default useAxios;
