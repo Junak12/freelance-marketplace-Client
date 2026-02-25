@@ -5,7 +5,7 @@ This is the frontend client for the **Freelance Marketplace** project, built wit
 
 ## 🌐 Live Demo
 
-- **Frontend (Netlify)**: [https://your-frontend-site.netlify.app](https://your-frontend-site.netlify.app)  
+- **Frontend (Netlify)**: splendorous-pixie-703dd8.netlify.app
 
 ---
 
