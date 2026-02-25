@@ -1,42 +1,56 @@
-# 🚀 Freelance Marketplace
+# Freelance Marketplace Client
 
-A full-stack **freelance marketplace** built with **React (Vite)** frontend and **Node.js + Express + MongoDB** backend.  
-Users can post jobs, accept tasks, track completion stats, and manage their profile.  
-
----
-
-## **🌐 Live Demo**
-
-- **Frontend (Netlify)**: [https://your-frontend-site.netlify.app](https://your-frontend-site.netlify.app)  
-- **Backend (Render)**: [https://freelance-marketplace-server-1.onrender.com](https://freelance-marketplace-server-1.onrender.com)
+This is the frontend client for the **Freelance Marketplace** project, built with **React.js**. It interacts with the backend server to allow users to browse jobs, manage tasks, submit reviews, and update profiles.
 
 ---
 
-## **📌 Features**
+## Features
 
-- User authentication: Google Sign-In & email/password
-- CRUD operations for jobs and tasks
-- Accept jobs and track status
-- Profile management: update name and profile image
-- Dark mode support (inputs, charts, profile)
-- Task completion rate & status breakdown with charts
-- Responsive UI with TailwindCSS
-- Smooth animations with Framer Motion
-
----
-
-## **🛠 Tech Stack**
-
-**Frontend**  
-![React](https://img.shields.io/badge/React-61DAFB?logo=react&logoColor=black)  
-![Vite](https://img.shields.io/badge/Vite-646CFF?logo=vite&logoColor=white)  
-![TailwindCSS](https://img.shields.io/badge/Tailwind-06B6D4?logo=tailwind-css&logoColor=white)  
-
-**Backend**  
-![Node.js](https://img.shields.io/badge/Node.js-339933?logo=node.js&logoColor=white)  
-![Express](https://img.shields.io/badge/Express-000000?logo=express&logoColor=white)  
-![MongoDB](https://img.shields.io/badge/MongoDB-47A248?logo=mongodb&logoColor=white)  
+- Browse all available jobs
+- Add new jobs (for clients)
+- Accept jobs (for freelancers)
+- Manage personal tasks and assigned jobs
+- Submit and view reviews
+- User authentication (Firebase Auth)
+- Update user profile (name and image)
+- Responsive design with Tailwind CSS
+- Animations with Framer Motion
+- Reusable components and custom hooks
 
 ---
 
-## **🗂 Project Structure**
+## Tech Stack
+
+- React.js (Functional Components & Hooks)
+- Firebase Authentication
+- Axios for API requests
+- Tailwind CSS
+- Framer Motion
+- React Icons
+
+---
+
+## API Endpoints
+
+### Jobs
+- `GET /AllJobs` — Fetch all jobs
+- `POST /addjobs` — Add a new job
+- `GET /AllJobs/:id` — Get a single job by ID
+- `PUT /AllJobs/:id/accept` — Accept a job
+- `GET /my-add-job/:email` — Get jobs added by a specific user
+- `DELETE /my-added-jobs/:id` — Delete a job
+- `PUT /my-added-jobs/:id/accept` — Update job details
+
+### Users
+- `PUT /users/:email` — Create or update a user (upsert)
+- `GET /users/:email` — Get a user by email (excludes password)
+- `PUT /update-profile/:email` — Update a user's profile (name, image)
+
+### Tasks
+- `POST /my-task-collection` — Assign a task to a freelancer
+- `GET /my-task-collection/:email` — Get tasks assigned to a freelancer
+- `DELETE /my-task/:id` — Delete a task
+
+### Reviews
+- `POST /reviews` — Submit a review
+- `GET /getTopReviews` — Fetch all reviews
