@@ -109,7 +109,7 @@ const UserProfile = () => {
                 : `${userData.image}?t=${Date.now()}`
             }
             alt="Profile"
-            className="w-28 h-28 rounded-full object-cover border-2"
+            className="w-28 text-white h-28 rounded-full object-cover border-2"
           />
           {editMode ? (
             <>
@@ -124,7 +124,7 @@ const UserProfile = () => {
                   setEditMode(false);
                   setForm({ name: userData.name, image: userData.image });
                 }}
-                className="px-4 py-2 bg-red-500 text-white rounded-lg"
+                className="px-11 py-2 bg-red-500 text-white rounded-lg"
               >
                 Cancel
               </button>
@@ -132,7 +132,7 @@ const UserProfile = () => {
           ) : (
             <button
               onClick={() => setEditMode(true)}
-              className="px-4 py-2 border rounded-lg"
+              className="px-4 py-2 border rounded-lg text-white bg-cyan-700 cursor-pointer"
             >
               Edit Profile
             </button>
@@ -146,20 +146,20 @@ const UserProfile = () => {
                 name="name"
                 value={form.name}
                 onChange={handleChange}
-                className="w-full px-3 py-2 border rounded-lg"
+                className="w-full px-3 py-2 border rounded-lg text-black dark:text-white  dark:placeholder:bg-gray-100"
                 placeholder="Full name"
               />
               <input
                 name="image"
                 value={form.image}
                 onChange={handleChange}
-                className="w-full px-3 py-2 border rounded-lg"
+                className="w-full px-3 py-2 border rounded-lg text-black dark:text-white  dark:placeholder:bg-gray-100"
                 placeholder="Profile image URL"
               />
             </div>
           ) : (
             <>
-              <h2 className="text-3xl font-bold">{userData.name}</h2>
+              <h2 className="text-3xl font-bold dark:text-white">{userData.name}</h2>
               <p className="text-gray-500">{userData.email}</p>
             </>
           )}
@@ -168,28 +168,28 @@ const UserProfile = () => {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 mt-8">
         <div className="border border-cyan-400 rounded-xl p-6 shadow-sm">
-          <p className="text-xs md:text-sm font-medium text-gray-500 uppercase tracking-wider">
+          <p className="text-xs md:text-sm font-medium dark:text-slate-200 text-gray-500 uppercase tracking-wider">
             Total Added Tasks
           </p>
-          <p className="text-2xl md:text-4xl font-black text-cyan-700 mt-2">
+          <p className="text-2xl md:text-4xl font-black  dark:text-slate-200 text-cyan-700 mt-2">
             {totalAdded}
           </p>
         </div>
         <div className="border border-cyan-400 rounded-xl p-6 shadow-sm">
-          <p className="text-xs md:text-sm font-medium text-gray-500 uppercase tracking-wider">
+          <p className="text-xs md:text-sm font-medium dark:text-slate-200 text-gray-500 uppercase tracking-wider">
             Accepted Tasks
           </p>
-          <p className="text-2xl md:text-4xl font-black text-cyan-700 mt-2">
+          <p className="text-2xl md:text-4xl dark:text-slate-200 font-black text-cyan-700 mt-2">
             {totalAccepted}
           </p>
         </div>
         <div className="border border-cyan-400 rounded-xl p-6 shadow-sm sm:col-span-2 lg:col-span-1">
-          <p className="text-xs md:text-sm font-medium text-gray-500 uppercase tracking-wider mb-2">
+          <p className="text-xs md:text-sm font-medium dark:text-slate-200 text-gray-500 uppercase tracking-wider mb-2">
             Completion Rate
           </p>
           <div className="flex flex-col gap-3">
             <div className="flex items-end gap-2">
-              <span className="text-2xl md:text-4xl font-black text-cyan-700">
+              <span className="text-2xl dark:text-slate-200 md:text-4xl font-black text-cyan-700">
                 {completionRate}%
               </span>
             </div>
@@ -205,10 +205,10 @@ const UserProfile = () => {
       </div>
 
       <div className="mt-8 border border-cyan-400 rounded-xl p-4 md:p-6 shadow-sm">
-        <h3 className="text-lg font-bold mb-6 border-l-4 border-cyan-600 pl-3">
+        <h3 className="text-lg font-bold dark:text-slate-200 mb-6 border-l-4 border-cyan-600 pl-3">
           Task Status Breakdown
         </h3>
-        <div className="w-full h-[250px] md:h-[350px]">
+        <div className="w-full h-[250px]  md:h-[350px]">
           <ResponsiveContainer width="100%" height="100%">
             <BarChart
               data={statusData}
