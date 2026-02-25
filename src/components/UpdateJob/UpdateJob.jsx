@@ -6,7 +6,8 @@ import useAxios from "../../hooks/useAxios";
 import { useAddedTask } from "../../hooks/useAddedTask";
 import { useData } from "../../hooks/useData";
 import { useTask } from "../../hooks/useTask";
-
+import { useAuth } from "../../hooks/useAuth";
+import { useUser } from "../../hooks/useUser";
 
 const UpdateJob = () => {
   const { id } = useParams();
@@ -16,45 +17,24 @@ const UpdateJob = () => {
   const { fetcAddedhData } = useAddedTask();
   const { fetchData } = useData();
   const { fetchTask } = useTask();
+  const {user} = useAuth();
+  const {userData} = useUser();
 
-
-  const [job, setJob] = useState({
-    title: "",
-    category: "",
-    budget: "",
-    currency: "",
-    coverImage: "",
-    deadline: "",
-    status: "open",
-    summary: "",
-    taskDescription: "",
-    acceptedBy: "",
-    postedBy: "",
-    postedByEmail: "",
-  });
-
+  const [job, setJob] = useState(null);
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    fetchUser();
-  }, []);
 
   useEffect(() => {
     const loadJob = async () => {
       try {
         const res = await instance.get(`/my-added-jobs/${id}`);
-        setJob({
-          ...res.data,
-          postedBy: userData?.name || res.data.postedBy,
-          postedByEmail: userData?.email || res.data.postedByEmail,
-        });
+        setJob(res.data);
       } finally {
         setLoading(false);
       }
     };
     loadJob();
-  }, [id, userData]);
+  }, [id, instance]);
 
   const handleChange = (e) => {
     setJob({ ...job, [e.target.name]: e.target.value });
@@ -63,20 +43,8 @@ const UpdateJob = () => {
     }
   };
 
-  const validate = () => {
-    const newErrors = {};
-    if (!job.title.trim()) newErrors.title = "Title is required";
-    if (!job.category.trim()) newErrors.category = "Category is required";
-    if (!job.budget) newErrors.budget = "Budget is required";
-    if (!job.summary.trim()) newErrors.summary = "Summary is required";
-    if (!job.taskDescription.trim())
-      newErrors.taskDescription = "Task description is required";
-    return newErrors;
-  };
-
   const handleUpdate = async (e) => {
     e.preventDefault();
-
     if (job.acceptedBy) {
       Swal.fire({
         icon: "warning",
@@ -87,9 +55,7 @@ const UpdateJob = () => {
       });
       return;
     }
-
-    const res = await instance.put(`/my-added-jobs/${id}`, job);
-
+    const res = await instance.put(`/my-added-jobs/${id}/accept`, job);
     if (res.data.modifiedCount > 0) {
       Swal.fire({
         icon: "success",
@@ -107,7 +73,7 @@ const UpdateJob = () => {
     }
   };
 
-  if (loading) {
+  if (loading || !job) {
     return (
       <div className="min-h-[60vh] flex items-center justify-center">
         <span className="loading loading-spinner loading-lg text-cyan-600"></span>
@@ -129,7 +95,8 @@ const UpdateJob = () => {
           Update Job Details
         </h2>
         <p className="mb-6 text-sm text-gray-500">
-          Posted by {job.postedBy} ({job.postedByEmail})
+          Posted by {userData.name || "Unknown"} (
+          {user.email || "No Email"})
         </p>
 
         <form

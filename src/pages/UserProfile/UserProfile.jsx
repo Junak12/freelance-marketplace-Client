@@ -15,6 +15,7 @@ import {
 } from "recharts";
 import { useUser } from "../../hooks/useUser";
 
+
 const UserProfile = () => {
   const { user } = useAuth();
   const instance = useAxios();
