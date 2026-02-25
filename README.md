@@ -2,6 +2,11 @@
 
 This is the frontend client for the **Freelance Marketplace** project, built with **React.js**. It interacts with the backend server to allow users to browse jobs, manage tasks, submit reviews, and update profiles.
 
+
+## 🌐 Live Demo
+
+- **Frontend (Netlify)**: [https://your-frontend-site.netlify.app](https://your-frontend-site.netlify.app)  
+
 ---
 
 ## Features
