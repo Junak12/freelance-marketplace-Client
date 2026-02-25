@@ -1,9 +1,14 @@
 import { useEffect } from "react";
 import { motion } from "framer-motion";
 import { useTask } from "../../hooks/useTask";
+import { useAuth } from "../../hooks/useAuth";
+import useAxios from "../../hooks/useAxios";
+import Swal from "sweetalert2";
 
 const MyAcceptedTask = () => {
-  const { tasks, loading, error } = useTask();
+  const { tasks, loading, error, fetchTask } = useTask();
+  const {user} = useAuth();
+  const instance = useAxios();
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -16,6 +21,31 @@ const MyAcceptedTask = () => {
   if (error) {
     return <p className="text-center text-red-500">{error}</p>;
   }
+
+  const handleDelete = async (id) => {
+    if (!user?.email) return;
+
+    const confirm = await Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    });
+
+    if (confirm.isConfirmed) {
+      try {
+        await instance.delete(`/my-task/${id}`);
+        Swal.fire("Deleted!", "Your task has been deleted.", "success");
+        fetchTask();
+      } catch (error) {
+        Swal.fire("Error", "Failed to delete the task.", "error");
+      }
+    }
+  };
+
 
   return (
     <motion.div
@@ -65,9 +95,16 @@ const MyAcceptedTask = () => {
                 {task.currency} {task.budget}
               </p>
 
-              <span className="inline-block mt-3 px-3 py-1 rounded-full bg-green-100 text-green-700 text-sm dark:bg-green-800 dark:text-green-200">
+              <span className="inline-block mt-3 px-3  rounded-full bg-green-100 text-green-700 text-sm dark:bg-green-800 dark:text-green-200">
                 {task.status}
               </span>
+              <button
+                className="border px-4 py-1 rounded-2xl bg-red-500 border-slate-700 text-white font-medium 
+                hover:scale-105 transition-all cursor-pointer"
+                onClick={() => handleDelete(task._id)}
+              >
+                Delete Task
+              </button>
             </div>
           ))}
         </div>
