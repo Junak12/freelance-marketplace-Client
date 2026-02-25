@@ -14,6 +14,7 @@ import PrivateRoute from './components/PrivateRoute/PrivateRoute.jsx';
 import MyAcceptedTask from './pages/MyAcceptedTask/MyAcceptedTask.jsx';
 import MyAddedTask from './pages/MyAddedTask/MyAddedTask.jsx';
 import UpdateJob from './components/UpdateJob/UpdateJob.jsx';
+import UserProfile from './pages/UserProfile/UserProfile.jsx';
 
 const router = createBrowserRouter([
   {
@@ -64,6 +65,12 @@ const router = createBrowserRouter([
         path: "/my-added-jobs/:id",
         element:<PrivateRoute>
           <UpdateJob/>
+        </PrivateRoute>
+      },
+      {
+        path:"/profile",
+        element:<PrivateRoute>
+          <UserProfile/>
         </PrivateRoute>
       },
     ],
