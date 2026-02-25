@@ -2,10 +2,10 @@
 
 This is the frontend client for the **Freelance Marketplace** project, built with **React.js**. It interacts with the backend server to allow users to browse jobs, manage tasks, submit reviews, and update profiles.
 
+## Live Demo
 
-## 🌐 Live Demo
-
-- **Frontend (Netlify)**: splendorous-pixie-703dd8.netlify.app
+Check out the live demo of the Freelance Marketplace client here:  
+[https://splendorous-pixie-703dd8.netlify.app](https://splendorous-pixie-703dd8.netlify.app)
 
 ---
 
