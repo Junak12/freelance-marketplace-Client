@@ -1,11 +1,42 @@
 import axios from "axios";
+import { useAuth } from "./useAuth";
+import { useEffect } from "react";
 
-// Create Axios instance pointing to your deployed backend
 const instance = axios.create({
-  baseURL: import.meta.env.VITE_API_URL, // use the .env variable
+  baseURL: import.meta.env.VITE_API_URL,
 });
 
 const useAxios = () => {
+  const { user, logoutUser } = useAuth(); 
+
+  useEffect(() => {
+    if (!user) return;
+
+    const requestInterceptor = instance.interceptors.request.use(
+      (config) => {
+        config.headers.Authorization = `Bearer ${user.accessToken}`;
+        return config;
+      },
+      (error) => Promise.reject(error),
+    );
+
+    const responseInterceptor = instance.interceptors.response.use(
+      (response) => response,
+      (error) => {
+        if (error.response && error.response.status === 401) {
+          console.warn("Unauthorized! Logging out...");
+          logoutUser?.();
+        }
+        return Promise.reject(error);
+      },
+    );
+
+    return () => {
+      instance.interceptors.request.eject(requestInterceptor);
+      instance.interceptors.response.eject(responseInterceptor);
+    };
+  }, [user, logoutUser]);
+
   return instance;
 };
 
