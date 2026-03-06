@@ -5,7 +5,7 @@ This is the frontend client for the **Freelance Marketplace** project, built wit
 ## Live Demo
 
 Check out the live demo of the Freelance Marketplace client here:  
-[https://splendorous-pixie-703dd8.netlify.app](https://splendorous-pixie-703dd8.netlify.app](https://sensational-trifle-4aa337.netlify.app/my-accepted-task)
+[https://sensational-trifle-4aa337.netlify.app/)
 
 ---
 
